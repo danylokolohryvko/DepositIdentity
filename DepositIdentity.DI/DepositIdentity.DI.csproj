@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DeposiIdentity.DAL\DeposiIdentity.DAL.csproj" />
+    <ProjectReference Include="..\DeposiIdentity.DAL\DepositIdentity.DAL.csproj" />
     <ProjectReference Include="..\DepositIdentity.BLL\DepositIdentity.BLL.csproj" />
   </ItemGroup>
 

@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DepositIdentity", "DepositIdentity\DepositIdentity.csproj", "{0CF9CB02-89CF-4C6E-ADC4-68A12DBB2B00}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeposiIdentity.DAL", "DeposiIdentity.DAL\DeposiIdentity.DAL.csproj", "{7286CBE2-69B9-4E27-9C7C-BF01BA86F8DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DepositIdentity.DAL", "DeposiIdentity.DAL\DepositIdentity.DAL.csproj", "{7286CBE2-69B9-4E27-9C7C-BF01BA86F8DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepositIdentity.BLL", "DepositIdentity.BLL\DepositIdentity.BLL.csproj", "{F6135F30-FC6D-4F57-95B2-B1F1AA6CCE0D}"
 EndProject

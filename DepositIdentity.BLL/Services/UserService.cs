@@ -25,16 +25,18 @@ namespace DepositIdentity.BLL.Services
             var result = await this.userManager.CreateAsync(user, model.Password);
             if(result.Succeeded)
             {
-                user = await this.userManager.FindByNameAsync(model.UserName);
-                await this.signInManager.SignInAsync(user,false);
+                user = await this.userManager.FindByNameAsync(model.Username);
+                await this.signInManager.SignInAsync(user, true);
             }
+
             return result.Succeeded;
         }
 
         public async Task<bool> Login(LoginDTO model)
         {
             await this.signInManager.SignOutAsync();
-            var result = await this.signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
+            var result = await this.signInManager.PasswordSignInAsync(model.Username, model.Password, true, false);
+
             return result.Succeeded;
         }
 

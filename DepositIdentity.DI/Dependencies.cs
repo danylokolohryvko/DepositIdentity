@@ -16,6 +16,15 @@ namespace DepositIdentity.DI
                 options.UseSqlServer(connection));
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 1;
+                options.Password.RequiredUniqueChars = 1;
+            });
             services.AddScoped<IUserService, UserService>();
             services.AddAutoMapper(typeof(MapperProfile));
         }

@@ -2,6 +2,7 @@
 using DepositIdentity.BLL.DTOs;
 using DepositIdentity.BLL.Interfaces;
 using DepositIdentity.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace DepositIdentity.Controllers
             bool result = await this.userService.Register(dto);
             if(result)
             {
-                return Ok("Done!");
+                return Ok("Register!");
             }
             else
             {
@@ -52,7 +53,7 @@ namespace DepositIdentity.Controllers
             bool result = await this.userService.Login(dto);
             if(result)
             {
-                return Ok("Done!");
+                return Ok("Login!");
             }
             else
             {
@@ -61,10 +62,17 @@ namespace DepositIdentity.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await this.userService.Logout();
-            return Ok("Done!");
+            return Ok("Logout!");
+        }
+
+        [Authorize]
+        public IActionResult Test()
+        {
+            return Ok($"Welcome {HttpContext.User.Identity.Name}");
         }
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace MVCTest.Models
+namespace DepositIdentity.Models
 {
     public class ErrorViewModel
     {
