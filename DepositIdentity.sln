@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DepositIdentity", "DepositI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeposiIdentity.DAL", "DeposiIdentity.DAL\DeposiIdentity.DAL.csproj", "{7286CBE2-69B9-4E27-9C7C-BF01BA86F8DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepositIdentity.BLL", "DepositIdentity.BLL\DepositIdentity.BLL.csproj", "{F6135F30-FC6D-4F57-95B2-B1F1AA6CCE0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7286CBE2-69B9-4E27-9C7C-BF01BA86F8DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7286CBE2-69B9-4E27-9C7C-BF01BA86F8DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7286CBE2-69B9-4E27-9C7C-BF01BA86F8DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6135F30-FC6D-4F57-95B2-B1F1AA6CCE0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6135F30-FC6D-4F57-95B2-B1F1AA6CCE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6135F30-FC6D-4F57-95B2-B1F1AA6CCE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6135F30-FC6D-4F57-95B2-B1F1AA6CCE0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
