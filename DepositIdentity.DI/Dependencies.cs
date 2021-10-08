@@ -14,8 +14,11 @@ namespace DepositIdentity.DI
         {
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(connection));
+
             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>();
+                .AddEntityFrameworkStores<ApplicationContext>()
+                .AddDefaultTokenProviders();
+
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -25,6 +28,8 @@ namespace DepositIdentity.DI
                 options.Password.RequiredLength = 1;
                 options.Password.RequiredUniqueChars = 1;
             });
+
+
             services.AddScoped<IUserService, UserService>();
             services.AddAutoMapper(typeof(MapperProfile));
         }

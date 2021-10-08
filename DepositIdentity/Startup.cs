@@ -1,15 +1,14 @@
 using DepositIdentity.AutoMapper;
 using DepositIdentity.DI;
+using DepositIdentity.IdentityServer;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace DepositIdentity
 {
@@ -25,10 +24,21 @@ namespace DepositIdentity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddFluentValidation(options => 
+                    options.RegisterValidatorsFromAssemblyContaining<Startup>());
+
             string connection = Configuration.GetConnectionString("DefaultConnection");
             Dependencies.Inject(services, connection);
             services.AddAutoMapper(typeof(MapperProfile));
+
+            var builder = services.AddIdentityServer(options => { options.EmitStaticAudienceClaim = true; })
+                .AddInMemoryIdentityResources(IdentityConfig.IdentityResources)
+                .AddInMemoryApiScopes(IdentityConfig.ApiScopes)
+                .AddInMemoryClients(IdentityConfig.Clients)
+                .AddAspNetIdentity<IdentityUser>();
+
+            builder.AddDeveloperSigningCredential();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,23 +50,23 @@ namespace DepositIdentity
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Account/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            LoggerFactory.Create(builder => builder.AddConsole());
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthentication();
+            
+            app.UseIdentityServer();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }

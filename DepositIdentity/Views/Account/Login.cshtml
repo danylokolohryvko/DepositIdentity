@@ -4,9 +4,36 @@
 
 }
 
-<form asp-controller="Account" asp-action="Login" asp-method="post">
-    <label></label>
-    <input asp-for="Username" type="text" />
-    <input asp-for="Password" type="password" />
-    <input type="submit" value="Submit" />
+<form asp-controller="Account" asp-action="Login" method="post">
+    <div class="grid">
+        <label>Login</label>
+        <input asp-for="Username" type="text" />
+        <span asp-validation-for="Username"></span>
+
+        <label>Password</label>
+        <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <input asp-for="ReturnUrl" type="hidden" />
+    <input type="submit" value="Login" />
 </form>
+
+<style>
+    input {
+        margin-bottom: .5rem;
+    }
+
+    span {
+        margin-bottom: .5rem;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+
+    form {
+        text-align: center;
+    }
+</style>
