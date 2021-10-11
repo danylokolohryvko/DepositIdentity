@@ -29,6 +29,7 @@ namespace DepositIdentity.BLL.Services
         {
             var user = this.mapper.Map<IdentityUser>(model);
             var result = await this.userManager.CreateAsync(user, model.Password);
+
             if(result.Succeeded)
             {
                 user = await this.userManager.FindByNameAsync(model.Username);
@@ -44,6 +45,7 @@ namespace DepositIdentity.BLL.Services
             var user = await this.userManager.FindByNameAsync(model.Username);
             await this.signInManager.SignOutAsync();
             var result = await this.signInManager.PasswordSignInAsync(user, model.Password, true, false);
+
             if(result.Succeeded)
             {
                 await events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName, clientId: context?.Client.ClientId));
@@ -52,6 +54,7 @@ namespace DepositIdentity.BLL.Services
             {
                 await events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials", clientId: context?.Client.ClientId));
             }
+
             return result.Succeeded;
         }
 

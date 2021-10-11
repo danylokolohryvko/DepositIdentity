@@ -54,6 +54,7 @@ namespace DepositIdentity
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             LoggerFactory.Create(builder => builder.AddConsole());
 
             app.UseHttpsRedirection();

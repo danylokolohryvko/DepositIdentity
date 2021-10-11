@@ -2,9 +2,7 @@
 using DepositIdentity.BLL.DTOs;
 using DepositIdentity.BLL.Interfaces;
 using DepositIdentity.Models;
-using IdentityServer4.Events;
 using IdentityServer4.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -40,6 +38,7 @@ namespace DepositIdentity.Controllers
             }
             var dto = this.mapper.Map<RegisterDTO>(model);
             bool result = await this.userService.Register(dto);
+
             if (result && model.ReturnUrl != null)
             {
                 return Redirect(model.ReturnUrl);
@@ -68,8 +67,10 @@ namespace DepositIdentity.Controllers
             {
                 return View(model);
             }
+
             var dto = this.mapper.Map<LoginDTO>(model);
             bool result = await this.userService.Login(dto);
+
             if (result && model.ReturnUrl != null)
             {
                 return Redirect(model.ReturnUrl);
@@ -90,10 +91,12 @@ namespace DepositIdentity.Controllers
             var context = await interaction.GetLogoutContextAsync(logoutId);
             string returnUrl = context?.PostLogoutRedirectUri;
             await this.userService.Logout();
+
             if (returnUrl == null)
             {
                 return BadRequest();
             }
+
             return  Redirect(returnUrl);
         }
 
