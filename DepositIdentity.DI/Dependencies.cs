@@ -1,7 +1,9 @@
 ﻿using DepositIdentity.BLL.AutoMapper;
 using DepositIdentity.BLL.Interfaces;
 using DepositIdentity.BLL.Services;
+using DepositIdentity.Core.Models;
 using DepositIdentity.DAL.EntityFramework;
+using DepositIdentity.DAL.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +17,7 @@ namespace DepositIdentity.DI
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(connection));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
 
@@ -29,8 +31,9 @@ namespace DepositIdentity.DI
                 options.Password.RequiredUniqueChars = 1;
             });
 
-
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAdminService, AdminService>();
             services.AddAutoMapper(typeof(MapperProfile));
         }
     }

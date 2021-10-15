@@ -1,10 +1,12 @@
-using DepositIdentity.AutoMapper;
+using DepositIdentity.Core.FluentValidation;
+using DepositIdentity.Core.Models;
 using DepositIdentity.DI;
+using DepositIdentity.Filters;
 using DepositIdentity.IdentityServer;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,19 +26,23 @@ namespace DepositIdentity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews()
+            services.AddControllersWithViews( options =>
+            {
+                options.Filters.Add(typeof(DenyAccessToBlockedUsers));
+            })
                 .AddFluentValidation(options => 
-                    options.RegisterValidatorsFromAssemblyContaining<Startup>());
+                    options.RegisterValidatorsFromAssemblyContaining<LoginVMValidation>());
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             Dependencies.Inject(services, connection);
-            services.AddAutoMapper(typeof(MapperProfile));
+
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             var builder = services.AddIdentityServer(options => { options.EmitStaticAudienceClaim = true; })
                 .AddInMemoryIdentityResources(IdentityConfig.IdentityResources)
                 .AddInMemoryApiScopes(IdentityConfig.ApiScopes)
                 .AddInMemoryClients(IdentityConfig.Clients)
-                .AddAspNetIdentity<IdentityUser>();
+                .AddAspNetIdentity<ApplicationUser>();
 
             builder.AddDeveloperSigningCredential();
         }

@@ -1,10 +1,12 @@
-﻿namespace DepositIdentity.BLL.DTOs
+﻿namespace DepositIdentity.Core.Models
 {
-    public class LoginDTO
+    public class RegisterViewModel
     {
         public string Username { get; set; }
 
         public string Password { get; set; }
+
+        public string PasswordConfirmation { get; set; }
 
         public string ReturnUrl { get; set; }
     }

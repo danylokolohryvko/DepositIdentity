@@ -1,7 +1,7 @@
-﻿using DepositIdentity.Models;
+﻿using DepositIdentity.Core.Models;
 using FluentValidation;
 
-namespace DepositIdentity.FluentValidation
+namespace DepositIdentity.Core.FluentValidation
 {
     public class RegisterVMValidation : AbstractValidator<RegisterViewModel>
     {

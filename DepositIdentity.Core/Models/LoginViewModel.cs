@@ -1,12 +1,10 @@
-﻿namespace DepositIdentity.Models
+﻿namespace DepositIdentity.Core.Models
 {
-    public class RegisterViewModel
+    public class LoginViewModel
     {
         public string Username { get; set; }
 
         public string Password { get; set; }
-
-        public string PasswordConfirmation { get; set; }
 
         public string ReturnUrl { get; set; }
     }

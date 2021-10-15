@@ -12,13 +12,14 @@
         <span asp-validation-for="Username"></span>
 
         <label>Password</label>
-        <input asp-for="Password" type="password"/>
+        <input asp-for="Password" type="password" />
         <span asp-validation-for="Password"></span>
 
         <label>Confirm password</label>
         <input asp-for="PasswordConfirmation" type="password" />
         <span asp-validation-for="PasswordConfirmation"></span>
     </div>
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
     <input asp-for="ReturnUrl" type="hidden" />
     <input type="submit" value="Register" />
 </form>
@@ -29,6 +30,10 @@
 
     span {
         margin-bottom: .5rem;
+    }
+
+    li {
+        display: inline-block;
     }
 
     .grid{

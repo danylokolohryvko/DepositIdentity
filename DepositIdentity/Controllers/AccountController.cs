@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using DepositIdentity.BLL.DTOs;
 using DepositIdentity.BLL.Interfaces;
-using DepositIdentity.Models;
+using DepositIdentity.Core.Models;
 using IdentityServer4.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -12,13 +12,11 @@ namespace DepositIdentity.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService userService;
-        private readonly IMapper mapper;
         private readonly IIdentityServerInteractionService interaction;
 
-        public AccountController(IUserService userService, IMapper mapper, IIdentityServerInteractionService interaction)
+        public AccountController(IUserService userService, IIdentityServerInteractionService interaction)
         {
             this.userService = userService;
-            this.mapper = mapper;
             this.interaction = interaction;
         }
 
@@ -36,8 +34,7 @@ namespace DepositIdentity.Controllers
             {
                 return View(model);
             }
-            var dto = this.mapper.Map<RegisterDTO>(model);
-            bool result = await this.userService.Register(dto);
+            bool result = await this.userService.Register(model);
 
             if (result && model.ReturnUrl != null)
             {
@@ -68,8 +65,7 @@ namespace DepositIdentity.Controllers
                 return View(model);
             }
 
-            var dto = this.mapper.Map<LoginDTO>(model);
-            bool result = await this.userService.Login(dto);
+            bool result = await this.userService.Login(model);
 
             if (result && model.ReturnUrl != null)
             {
@@ -98,6 +94,12 @@ namespace DepositIdentity.Controllers
             }
 
             return  Redirect(returnUrl);
+        }
+
+        [Authorize]
+        public IActionResult Test()
+        {
+            return Ok(User.Identity.Name);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
