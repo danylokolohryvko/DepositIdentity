@@ -1,4 +1,4 @@
-﻿using DepositIdentity.BLL.Interfaces;
+﻿using DepositIdentity.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

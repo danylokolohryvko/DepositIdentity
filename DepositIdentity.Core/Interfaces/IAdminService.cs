@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DepositIdentity.BLL.Interfaces
+namespace DepositIdentity.Core.Interfaces
 {
     public interface IAdminService
     {

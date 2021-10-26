@@ -1,12 +1,14 @@
 ﻿using DepositIdentity.BLL.AutoMapper;
-using DepositIdentity.BLL.Interfaces;
 using DepositIdentity.BLL.Services;
+using DepositIdentity.Core.Interfaces;
 using DepositIdentity.Core.Models;
 using DepositIdentity.DAL.EntityFramework;
 using DepositIdentity.DAL.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net;
+using System.Net.Mail;
 
 namespace DepositIdentity.DI
 {
@@ -16,6 +18,8 @@ namespace DepositIdentity.DI
         {
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(connection));
+
+            services.AddScoped<IEmailService, EmailService>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>()

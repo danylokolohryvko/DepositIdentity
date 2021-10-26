@@ -21,6 +21,7 @@ namespace DepositIdentity.Filters
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next) 
         {
             var user = await this.userManager.GetUserAsync(context.HttpContext.User);
+
             if (user != null && user.IsBlocked)
             {
                 await signIn.SignOutAsync();
