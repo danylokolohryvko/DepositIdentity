@@ -7,8 +7,6 @@ using DepositIdentity.DAL.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net;
-using System.Net.Mail;
 
 namespace DepositIdentity.DI
 {

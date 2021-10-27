@@ -7,8 +7,6 @@ namespace DepositIdentity.Core.Interfaces
     {
         public Task<bool> RegisterAsync(RegisterViewModel model);
 
-        public Task SendEmailConfirmTokenAsync(ApplicationUser user, string returnUrl);
-
         public Task<bool> ConfirmEmailAsync(string username, string token);
 
         public Task<bool> LoginAsync(LoginViewModel model);

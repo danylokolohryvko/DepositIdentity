@@ -44,14 +44,6 @@ namespace DepositIdentity.BLL.Services
             return result.Succeeded;
         }
 
-        public async Task SendEmailConfirmTokenAsync(ApplicationUser user, string returnUrl)
-        {
-            var token = HttpUtility.UrlEncode(await this.userManager.GenerateEmailConfirmationTokenAsync(user));
-            var username = HttpUtility.UrlEncode(user.UserName);
-            returnUrl = HttpUtility.UrlEncode(returnUrl);
-            await emailService.SendAsync(user.Email, "Deposit email confirmation", $"Click to link: https://localhost:44394/Account/ConfirmEmail?username={username}&token={token}&returnUrl={returnUrl}");
-        }
-
         public async Task<bool> ConfirmEmailAsync(string username, string token)
         {
             var user = await this.userManager.FindByNameAsync(username);
@@ -69,13 +61,17 @@ namespace DepositIdentity.BLL.Services
             var context = await this.interaction.GetAuthorizationContextAsync(model.ReturnUrl);
             var user = await this.userManager.FindByNameAsync(model.Username);
 
-            if(user != null && user.IsBlocked)
+            if (user == null)
+            {
+                this.contextAccessor.ActionContext.ModelState.AddModelError(string.Empty, "Incorrect username");
+            }
+            else if (user.IsBlocked)
             {
                 contextAccessor.ActionContext.ModelState.AddModelError(string.Empty, "You have been blocked");
 
                 return false;
             }
-            else if(user != null && !user.EmailConfirmed)
+            else if(!user.EmailConfirmed)
             {
                 contextAccessor.ActionContext.ModelState.AddModelError(string.Empty, "You need confirm email");
 
@@ -129,7 +125,7 @@ namespace DepositIdentity.BLL.Services
             
             if(user == null)
             {
-                this.contextAccessor.ActionContext.ModelState.AddModelError(string.Empty, "Error");
+                this.contextAccessor.ActionContext.ModelState.AddModelError(string.Empty, "Incorrect username");
             }
 
             var result = await this.userManager.ResetPasswordAsync(user, model.Token, model.Password);
@@ -140,7 +136,7 @@ namespace DepositIdentity.BLL.Services
             }
             else
             {
-                this.contextAccessor.ActionContext.ModelState.AddModelError(string.Empty, "Error");
+                this.contextAccessor.ActionContext.ModelState.AddModelError(string.Empty, "Can not reset password");
 
                 return false;
             }
@@ -151,6 +147,14 @@ namespace DepositIdentity.BLL.Services
         public async Task LogoutAsync()
         {
             await this.signInManager.SignOutAsync();
+        }
+
+        private async Task SendEmailConfirmTokenAsync(ApplicationUser user, string returnUrl)
+        {
+            var token = HttpUtility.UrlEncode(await this.userManager.GenerateEmailConfirmationTokenAsync(user));
+            var username = HttpUtility.UrlEncode(user.UserName);
+            returnUrl = HttpUtility.UrlEncode(returnUrl);
+            await emailService.SendAsync(user.Email, "Deposit email confirmation", $"Click to link: https://localhost:44394/Account/ConfirmEmail?username={username}&token={token}&returnUrl={returnUrl}");
         }
     }
 }
