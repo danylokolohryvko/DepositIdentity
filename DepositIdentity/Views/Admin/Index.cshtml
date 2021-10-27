@@ -1,0 +1,33 @@
+﻿@model List<ApplicationUser>;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="result-table">
+    <thead class="table-head">
+        <tr>
+            <th class="table-cell">Id</th>
+            <th class="table-cell">Username</th>
+            <th class="table-cell">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td class="table-cell">@user.Id</td>
+                <td class="table-cell">@user.UserName</td>
+                <td class="table-cell">
+                    @if (user.IsBlocked)
+                    {
+                        <a href="@Href($"/admin/unblock?userId={user.Id}")">Unblock</a>
+                    }
+                    else
+                    {
+                        <a href="@Href($"/admin/block?userId={user.Id}")">Block</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

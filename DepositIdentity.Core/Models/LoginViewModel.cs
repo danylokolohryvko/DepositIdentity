@@ -1,6 +1,6 @@
-﻿namespace DepositIdentity.BLL.DTOs
+﻿namespace DepositIdentity.Core.Models
 {
-    public class LoginDTO
+    public class LoginViewModel
     {
         public string Username { get; set; }
 

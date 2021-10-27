@@ -1,6 +1,6 @@
 using System;
 
-namespace DepositIdentity.Models
+namespace DepositIdentity.Core.Models
 {
     public class ErrorViewModel
     {

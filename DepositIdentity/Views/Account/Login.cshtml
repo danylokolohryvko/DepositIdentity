@@ -14,17 +14,29 @@
         <input asp-for="Password" type="password" />
         <span asp-validation-for="Password"></span>
     </div>
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
     <input asp-for="ReturnUrl" type="hidden" />
-    <input type="submit" value="Login" />
+    <input type="submit" value="Login" /><br />
+    <a href=@($"/Account/Register?returnUrl={HttpUtility.UrlEncode(Model.ReturnUrl)}")>Register</a>       
+    <a href=@($"/Account/ResetPassword?returnUrl={HttpUtility.UrlEncode(Model.ReturnUrl)}")>Forgot your password?</a>
 </form>
 
+
 <style>
+    ::marker {
+        margin-right:10px;
+    }
+
     input {
         margin-bottom: .5rem;
     }
 
     span {
         margin-bottom: .5rem;
+    }
+
+    li {
+        display:inline-block;
     }
 
     .grid {

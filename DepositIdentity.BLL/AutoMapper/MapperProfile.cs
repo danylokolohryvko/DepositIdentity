@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using DepositIdentity.BLL.DTOs;
-using Microsoft.AspNetCore.Identity;
+using DepositIdentity.Core.Models;
 
 namespace DepositIdentity.BLL.AutoMapper
 {
@@ -8,7 +7,7 @@ namespace DepositIdentity.BLL.AutoMapper
     {
         public MapperProfile()
         {
-            CreateMap<RegisterDTO, IdentityUser>();
+            CreateMap<RegisterViewModel, ApplicationUser>();
         }
     }
 }

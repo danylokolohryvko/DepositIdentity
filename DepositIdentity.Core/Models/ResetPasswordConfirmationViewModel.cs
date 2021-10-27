@@ -1,6 +1,6 @@
-﻿namespace DepositIdentity.Models
+﻿namespace DepositIdentity.Core.Models
 {
-    public class RegisterViewModel
+    public class ResetPasswordConfirmationViewModel
     {
         public string Username { get; set; }
 
@@ -9,5 +9,7 @@
         public string PasswordConfirmation { get; set; }
 
         public string ReturnUrl { get; set; }
+
+        public string Token { get; set; }
     }
 }
